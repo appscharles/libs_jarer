@@ -4,7 +4,5 @@ sourceSets {
             srcDirs = ["src/main/java", "src/main/resources"]
             includes = ["**/*.txt"]
         }
-        output.resourcesDir = 'out/production/classes'
-
     }
 }

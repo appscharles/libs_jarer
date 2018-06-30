@@ -11,6 +11,7 @@ sourceCompatibility = 1.8
 
 apply from: 'gradle/BintrayPublisher.gradle'
 apply from: 'gradle/SourceSetter.gradle'
+apply from: 'gradle/JarerConfigurator.gradle'
 
 repositories {
     mavenCentral()
@@ -18,7 +19,6 @@ repositories {
         url 'http://dl.bintray.com/appscharles/libs'
     }
 }
-
 dependencies {
     compile group: 'com.appscharles.libs', name: 'ioer', version: '1.0.0.0-dev3'
     testCompile group: 'com.appscharles.libs', name: 'processer', version: '1.0.0.0-dev3'

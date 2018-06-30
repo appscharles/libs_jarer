@@ -17,20 +17,24 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 29.06.2018
- * Time: 10:46
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Jar creator builder test.
  */
 public class JarCreatorBuilderTest {
 
 
+    /**
+     * The Temp.
+     */
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
 
+    /**
+     * Should create jar file and launch.
+     *
+     * @throws IOException        the io exception
+     * @throws JarerException     the jarer exception
+     * @throws ProcesserException the processer exception
+     */
     @Test
     public void shouldCreateJarFileAndLaunch() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");

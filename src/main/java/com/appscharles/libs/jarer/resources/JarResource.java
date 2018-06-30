@@ -1,5 +1,8 @@
 package com.appscharles.libs.jarer.resources;
 
+import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
+import com.appscharles.libs.jarer.models.PathResource;
+
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;
@@ -11,7 +14,7 @@ import java.util.zip.ZipInputStream;
 /**
  * The type Jar resources.
  */
-public class JarResources implements IPathResourceExtractor {
+public class JarResource implements IPathResourceExtractor {
 
     private URL packageURL;
 
@@ -23,7 +26,7 @@ public class JarResources implements IPathResourceExtractor {
      * @param packageURL  the package url
      * @param packageName the package name
      */
-    public JarResources(URL packageURL, String packageName) {
+    public JarResource(URL packageURL, String packageName) {
         this.packageURL = packageURL;
         this.packageName = packageName;
     }

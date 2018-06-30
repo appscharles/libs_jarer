@@ -1,17 +1,21 @@
 package com.appscharles.libs.jarer.creators;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 29.06.2018
- * Time: 07:52
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The interface Jar creator.
  */
 public interface IJarCreator extends ICreateable {
 
+    /**
+     * Add class.
+     *
+     * @param clazz the clazz
+     */
     void addClass(Class clazz);
 
+    /**
+     * Add package.
+     *
+     * @param name the name
+     */
     void addPackage(String name);
 }

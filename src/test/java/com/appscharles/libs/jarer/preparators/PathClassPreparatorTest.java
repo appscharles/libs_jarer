@@ -5,16 +5,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 29.06.2018
- * Time: 08:58
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Path class preparator test.
  */
 public class PathClassPreparatorTest {
 
+    /**
+     * Should prepare class name to specific requires.
+     */
     @Test
     public void shouldPrepareClassNameToSpecificRequires(){
         Assert.assertFalse(PathPreparator.forJarEntry(Program.class).contains("\\"));

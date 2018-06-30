@@ -5,15 +5,16 @@ import com.appscharles.libs.jarer.exceptions.JarerException;
 import java.util.jar.JarOutputStream;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 29.06.2018
- * Time: 10:10
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The interface Package adder.
  */
 public interface IPackageAdder {
 
+    /**
+     * Add.
+     *
+     * @param name            the name
+     * @param jarOutputStream the jar output stream
+     * @throws JarerException the jarer exception
+     */
     void add(String name, JarOutputStream jarOutputStream) throws JarerException;
 }

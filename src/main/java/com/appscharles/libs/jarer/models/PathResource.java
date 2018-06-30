@@ -1,13 +1,7 @@
-package com.appscharles.libs.jarer.resources;
+package com.appscharles.libs.jarer.models;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 29.06.2018
- * Time: 17:32
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Path resource.
  */
 public class PathResource {
 
@@ -15,24 +9,30 @@ public class PathResource {
 
     private String pathResource;
 
+    /**
+     * Instantiates a new Path resource.
+     *
+     * @param directory    the directory
+     * @param pathResource the path resource
+     */
     public PathResource(Boolean directory, String pathResource) {
         this.directory = directory;
         this.pathResource = pathResource;
     }
 
     /**
-     * Getter for property 'directory'.
+     * Is directory boolean.
      *
-     * @return Value for property 'directory'.
+     * @return the boolean
      */
     public Boolean isDirectory() {
         return this.directory;
     }
 
     /**
-     * Getter for property 'relativePath'.
+     * Gets path resource.
      *
-     * @return Value for property 'relativePath'.
+     * @return the path resource
      */
     public String getPathResource() {
         return this.pathResource;

@@ -3,6 +3,8 @@ package com.appscharles.libs.jarer.resources;
 import com.appscharles.libs.jarer.builders.JarCreatorBuilder;
 import com.appscharles.libs.jarer.creators.IJarCreator;
 import com.appscharles.libs.jarer.exceptions.JarerException;
+import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
+import com.appscharles.libs.jarer.models.PathResource;
 import com.appscharles.libs.jarer.programs.Extruder.Extruder;
 import com.appscharles.libs.processer.callers.CommanderCaller;
 import com.appscharles.libs.processer.callers.CommanderResult;
@@ -18,19 +20,23 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 30.06.2018
- * Time: 10:11
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Jar resources test.
  */
 public class JarResourcesTest {
 
+    /**
+     * The Temp.
+     */
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
 
+    /**
+     * Should get resources from jar file.
+     *
+     * @throws IOException        the io exception
+     * @throws JarerException     the jarer exception
+     * @throws ProcesserException the processer exception
+     */
     @Test
     public void shouldGetResourcesFromJarFile() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");
@@ -39,7 +45,7 @@ public class JarResourcesTest {
         jarCreator.create();
 
         URL url = new URL("jar:file:\\"+ jarFile.getPath()+ "!/");
-        IPathResourceExtractor pathResourceExtractor = new JarResources(url, Extruder.class.getPackage().getName());
+        IPathResourceExtractor pathResourceExtractor = new JarResource(url, Extruder.class.getPackage().getName());
         List<PathResource> pathResources =  pathResourceExtractor.getPathResources();
         Assert.assertTrue(pathResources.size() > 0);
 

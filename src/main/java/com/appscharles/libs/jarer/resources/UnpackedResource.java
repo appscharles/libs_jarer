@@ -3,6 +3,8 @@ package com.appscharles.libs.jarer.resources;
 import com.appscharles.libs.ioer.converters.RelativeFileConverter;
 import com.appscharles.libs.ioer.models.RelativeFile;
 import com.appscharles.libs.ioer.services.DirReader;
+import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
+import com.appscharles.libs.jarer.models.PathResource;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,13 +18,19 @@ import java.util.List;
 /**
  * The type Unpacked resources.
  */
-public class UnpackedResources implements IPathResourceExtractor {
+public class UnpackedResource implements IPathResourceExtractor {
 
     private URL packageURL;
 
     private String packageName;
 
-    public UnpackedResources(URL packageURL, String packageName) {
+    /**
+     * Instantiates a new Unpacked resources.
+     *
+     * @param packageURL  the package url
+     * @param packageName the package name
+     */
+    public UnpackedResource(URL packageURL, String packageName) {
         this.packageURL = packageURL;
         this.packageName = packageName;
     }

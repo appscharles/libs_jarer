@@ -4,9 +4,9 @@ import com.appscharles.libs.jarer.adders.ClassAdder;
 import com.appscharles.libs.jarer.adders.IAdder;
 import com.appscharles.libs.jarer.adders.PackageAdder;
 import com.appscharles.libs.jarer.exceptions.JarerException;
-import com.appscharles.libs.jarer.resources.IPathResourceExtractor;
-import com.appscharles.libs.jarer.resources.PathResource;
-import com.appscharles.libs.jarer.resources.PathResourceExtractor;
+import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
+import com.appscharles.libs.jarer.models.PathResource;
+import com.appscharles.libs.jarer.extractors.PathResourceExtractor;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public abstract class AbstractJarCreator implements IJarCreator {
     protected List<Class> classes;
 
     /**
-     * The Classes.
+     * The Packages.
      */
     protected List<String> packages;
 
@@ -53,15 +53,16 @@ public abstract class AbstractJarCreator implements IJarCreator {
         this.packages = new ArrayList<>();
     }
 
-    /**
-     * Add class.
-     *
-     * @param clazz the clazz
-     */
     public void addClass(Class clazz){
         this.classes.add(clazz);
     }
 
+    /**
+     * Load classes.
+     *
+     * @param jarOutputStream the jar output stream
+     * @throws JarerException the jarer exception
+     */
     protected void loadClasses(JarOutputStream jarOutputStream) throws JarerException {
         for (Class clazz : this.classes) {
             IAdder adder = new ClassAdder(clazz, jarOutputStream);
@@ -69,6 +70,12 @@ public abstract class AbstractJarCreator implements IJarCreator {
         }
     }
 
+    /**
+     * Load packages.
+     *
+     * @param jarOutputStream the jar output stream
+     * @throws JarerException the jarer exception
+     */
     protected void loadPackages(JarOutputStream jarOutputStream) throws JarerException {
         try {
             for (String packageName : this.packages) {

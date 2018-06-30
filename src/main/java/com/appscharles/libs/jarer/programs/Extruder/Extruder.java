@@ -7,16 +7,15 @@ import com.appscharles.libs.jarer.programs.Resourcer.Program2;
 import java.io.File;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 29.06.2018
- * Time: 15:09
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Extruder.
  */
 public class Extruder {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         try {
             File jarFile = new File("file.jar");

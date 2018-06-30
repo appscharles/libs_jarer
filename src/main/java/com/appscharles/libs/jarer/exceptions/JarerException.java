@@ -1,7 +1,7 @@
 package com.appscharles.libs.jarer.exceptions;
 
 /**
- * The type Updater exception.
+ * The type Jarer exception.
  */
 public class JarerException extends Exception {
     /**
@@ -10,14 +10,14 @@ public class JarerException extends Exception {
     static final long serialVersionUID = 7821375828146020432L;
 
     /**
-     * Instantiates a new Updater exception.
+     * Instantiates a new Jarer exception.
      */
     public JarerException() {
         super();
     }
 
     /**
-     * Instantiates a new Updater exception.
+     * Instantiates a new Jarer exception.
      *
      * @param message the message
      */
@@ -26,7 +26,7 @@ public class JarerException extends Exception {
     }
 
     /**
-     * Instantiates a new Updater exception.
+     * Instantiates a new Jarer exception.
      *
      * @param message the message
      * @param cause   the cause
@@ -36,7 +36,7 @@ public class JarerException extends Exception {
     }
 
     /**
-     * Instantiates a new Updater exception.
+     * Instantiates a new Jarer exception.
      *
      * @param cause the cause
      */

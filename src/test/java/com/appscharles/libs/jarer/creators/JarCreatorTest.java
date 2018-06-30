@@ -18,19 +18,23 @@ import java.io.IOException;
 import java.util.jar.Manifest;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 29.06.2018
- * Time: 08:09
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Jar creator test.
  */
 public class JarCreatorTest {
 
+    /**
+     * The Temp.
+     */
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
 
+    /**
+     * Should create jar file.
+     *
+     * @throws IOException        the io exception
+     * @throws JarerException     the jarer exception
+     * @throws ProcesserException the processer exception
+     */
     @Test
     public void shouldCreateJarFile() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");
@@ -45,6 +49,13 @@ public class JarCreatorTest {
         Assert.assertTrue(result.getOutput().contains("launched"));
     }
 
+    /**
+     * Should load sub class.
+     *
+     * @throws IOException        the io exception
+     * @throws JarerException     the jarer exception
+     * @throws ProcesserException the processer exception
+     */
     @Test
     public void shouldLoadSubClass() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");
@@ -58,6 +69,13 @@ public class JarCreatorTest {
         Assert.assertTrue(result.getOutput().contains("myName"));
     }
 
+    /**
+     * Should load package.
+     *
+     * @throws IOException        the io exception
+     * @throws JarerException     the jarer exception
+     * @throws ProcesserException the processer exception
+     */
     @Test
     public void shouldLoadPackage() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");

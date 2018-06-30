@@ -8,13 +8,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 29.06.2018
- * Time: 10:26
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Input stream adder.
  */
 public class InputStreamAdder extends AbstractAdder {
 
@@ -22,6 +16,13 @@ public class InputStreamAdder extends AbstractAdder {
 
     private InputStream inputStream;
 
+    /**
+     * Instantiates a new Input stream adder.
+     *
+     * @param jarEntryPath    the jar entry path
+     * @param inputStream     the input stream
+     * @param jarOutputStream the jar output stream
+     */
     public InputStreamAdder(String jarEntryPath, InputStream inputStream, JarOutputStream jarOutputStream) {
         super(jarOutputStream);
         this.jarEntryPath = jarEntryPath;

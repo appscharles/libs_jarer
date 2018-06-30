@@ -17,9 +17,9 @@ public class ManifestBuilder {
     /**
      * Create manifest builder.
      *
-     * @param projectName   the project name
-     * @param version       the version
-     * @param mainClassName the main class name
+     * @param projectName the project name
+     * @param version     the version
+     * @param mainClass   the main class
      * @return the manifest builder
      */
     public static ManifestBuilder create(String projectName, String version, Class mainClass){

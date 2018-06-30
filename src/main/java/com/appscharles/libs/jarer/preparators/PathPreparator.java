@@ -17,7 +17,7 @@ public class PathPreparator {
     }
 
     /**
-     * For jar entry directory string.
+     * For file jar entry string.
      *
      * @param relativeDirPath the relative dir path
      * @return the string
@@ -30,6 +30,12 @@ public class PathPreparator {
         return relativeDirPath;
     }
 
+    /**
+     * For directory jar entry string.
+     *
+     * @param relativeDirPath the relative dir path
+     * @return the string
+     */
     public static String forDirectoryJarEntry(String relativeDirPath) {
         relativeDirPath = relativeDirPath.replace("\\", "/");
         if (relativeDirPath.startsWith("/")){

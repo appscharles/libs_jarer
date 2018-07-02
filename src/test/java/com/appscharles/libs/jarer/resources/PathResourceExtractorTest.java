@@ -22,7 +22,7 @@ public class PathResourceExtractorTest {
      */
     @Test
     public void shouldGetRelativeFilesOfPackage() throws IOException {
-        IPathResourceExtractor pathResourceExtractor = new PathResourceExtractor(Extruder.class.getPackage().getName());
+        IPathResourceExtractor pathResourceExtractor = new PathResourceExtractor(Extruder.class.getPackage().getName(), Extruder.class.getProtectionDomain().getCodeSource().getLocation());
         List<PathResource> pathResources = pathResourceExtractor.getPathResources();
         Assert.assertTrue(pathResources.size() > 0);
     }

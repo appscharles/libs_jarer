@@ -4,6 +4,7 @@ import com.appscharles.libs.jarer.builders.JarCreatorBuilder;
 import com.appscharles.libs.jarer.creators.IJarCreator;
 import com.appscharles.libs.jarer.exceptions.JarerException;
 import com.appscharles.libs.jarer.programs.Empter.Program3;
+import com.appscharles.libs.jarer.programs.Extruder.Extruder;
 import com.appscharles.libs.processer.callers.CommanderCaller;
 import com.appscharles.libs.processer.callers.CommanderResult;
 import com.appscharles.libs.processer.callers.ICommanderCaller;
@@ -37,7 +38,7 @@ public class PackageAdderTest {
     @Test
     public void shouldCreateJarAndRunProgram() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");
-        IJarCreator jarCreator = JarCreatorBuilder.create("myApp", "1.0.0.0-dev2", Program3.class, jarFile).build();
+        IJarCreator jarCreator = JarCreatorBuilder.create("myApp", "1.0.0.0-dev2", Program3.class, jarFile, Extruder.class.getProtectionDomain().getCodeSource().getLocation()).build();
         jarCreator.addPackage(Program3.class.getPackage().getName());
         jarCreator.create();
         ICommanderCaller commanderCaller = new CommanderCaller();

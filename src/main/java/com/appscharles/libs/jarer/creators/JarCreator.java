@@ -5,6 +5,7 @@ import com.appscharles.libs.jarer.exceptions.JarerException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 
@@ -19,8 +20,8 @@ public class JarCreator extends AbstractJarCreator {
      * @param jarFile  the jar file
      * @param manifest the manifest
      */
-    public JarCreator(File jarFile, Manifest manifest) {
-        super(jarFile, manifest);
+    public JarCreator(File jarFile, Manifest manifest, URL locationClasses) {
+        super(jarFile, manifest, locationClasses);
     }
 
     @Override

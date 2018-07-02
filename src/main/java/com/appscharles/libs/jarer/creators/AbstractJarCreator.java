@@ -5,11 +5,12 @@ import com.appscharles.libs.jarer.adders.IAdder;
 import com.appscharles.libs.jarer.adders.PackageAdder;
 import com.appscharles.libs.jarer.exceptions.JarerException;
 import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
-import com.appscharles.libs.jarer.models.PathResource;
 import com.appscharles.libs.jarer.extractors.PathResourceExtractor;
+import com.appscharles.libs.jarer.models.PathResource;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.JarOutputStream;
@@ -30,6 +31,8 @@ public abstract class AbstractJarCreator implements IJarCreator {
      */
     protected Manifest manifest;
 
+    protected URL locationClasses;
+
     /**
      * The Classes.
      */
@@ -46,9 +49,10 @@ public abstract class AbstractJarCreator implements IJarCreator {
      * @param jarFile  the jar file
      * @param manifest the manifest
      */
-    public AbstractJarCreator(File jarFile, Manifest manifest) {
+    public AbstractJarCreator(File jarFile, Manifest manifest, URL locationClasses) {
         this.jarFile = jarFile;
         this.manifest = manifest;
+        this.locationClasses = locationClasses;
         this.classes = new ArrayList<>();
         this.packages = new ArrayList<>();
     }
@@ -79,7 +83,7 @@ public abstract class AbstractJarCreator implements IJarCreator {
     protected void loadPackages(JarOutputStream jarOutputStream) throws JarerException {
         try {
             for (String packageName : this.packages) {
-                IPathResourceExtractor rFR = new PathResourceExtractor(packageName);
+                IPathResourceExtractor rFR = new PathResourceExtractor(packageName, this.locationClasses);
                 List<PathResource> pathResources = rFR.getPathResources();
                 IAdder adder = new PackageAdder(pathResources, jarOutputStream);
                 adder.add();

@@ -2,6 +2,7 @@ package com.appscharles.libs.jarer.builders;
 
 import com.appscharles.libs.jarer.creators.IJarCreator;
 import com.appscharles.libs.jarer.exceptions.JarerException;
+import com.appscharles.libs.jarer.programs.Extruder.Extruder;
 import com.appscharles.libs.jarer.programs.Tester.Program;
 import com.appscharles.libs.jarer.programs.Tester.Sub.NamePrinter;
 import com.appscharles.libs.processer.callers.CommanderCaller;
@@ -38,7 +39,7 @@ public class JarCreatorBuilderTest {
     @Test
     public void shouldCreateJarFileAndLaunch() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");
-        IJarCreator jarCreator = JarCreatorBuilder.create("myApp", "1.0.0.0-dev2", Program.class, jarFile).build();
+        IJarCreator jarCreator = JarCreatorBuilder.create("myApp", "1.0.0.0-dev2", Program.class, jarFile, Extruder.class.getProtectionDomain().getCodeSource().getLocation()).build();
         jarCreator.addClass(Program.class);
         jarCreator.addClass(NamePrinter.class);
         jarCreator.create();

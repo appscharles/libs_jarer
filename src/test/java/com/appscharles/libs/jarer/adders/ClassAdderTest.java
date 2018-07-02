@@ -3,6 +3,7 @@ package com.appscharles.libs.jarer.adders;
 import com.appscharles.libs.jarer.builders.ManifestBuilder;
 import com.appscharles.libs.jarer.creators.JarCreator;
 import com.appscharles.libs.jarer.exceptions.JarerException;
+import com.appscharles.libs.jarer.programs.Extruder.Extruder;
 import com.appscharles.libs.jarer.programs.Tester.Program;
 import com.appscharles.libs.jarer.programs.Tester.Sub.NamePrinter;
 import com.appscharles.libs.processer.callers.CommanderCaller;
@@ -40,7 +41,7 @@ public class ClassAdderTest {
     public void shouldCreateJarAndRunProgram() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");
         Manifest manifest = ManifestBuilder.create("myApp", "1.0.0.0-dev2", Program.class).build();
-        JarCreator jarCreator = new JarCreator(jarFile, manifest);
+        JarCreator jarCreator = new JarCreator(jarFile, manifest, Extruder.class.getProtectionDomain().getCodeSource().getLocation());
         jarCreator.addClass(Program.class);
         jarCreator.addClass(NamePrinter.class);
         jarCreator.create();

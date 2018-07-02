@@ -4,6 +4,7 @@ import com.appscharles.libs.jarer.creators.IJarCreator;
 import com.appscharles.libs.jarer.creators.JarCreator;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Manifest;
@@ -25,6 +26,8 @@ public class JarCreatorBuilder {
 
     private IJarCreator jarCreator;
 
+    private URL locationClasses;
+
     private JarCreatorBuilder() {
         this.classes = new ArrayList<>();
         this.packages = new ArrayList<>();
@@ -39,12 +42,13 @@ public class JarCreatorBuilder {
      * @param jarFile     the jar file
      * @return the jar creator builder
      */
-    public static JarCreatorBuilder create(String projectName, String version, Class mainClass, File jarFile) {
+    public static JarCreatorBuilder create(String projectName, String version, Class mainClass, File jarFile, URL locationClasses) {
         JarCreatorBuilder instance = new JarCreatorBuilder();
         instance.mainClass = mainClass;
         instance.jarFile = jarFile;
+        instance.locationClasses = locationClasses;
         instance.manifest = ManifestBuilder.create(projectName, version, instance.mainClass).build();
-        instance.jarCreator = new JarCreator(instance.jarFile, instance.manifest);
+        instance.jarCreator = new JarCreator(instance.jarFile, instance.manifest, instance.locationClasses);
         return instance;
     }
 

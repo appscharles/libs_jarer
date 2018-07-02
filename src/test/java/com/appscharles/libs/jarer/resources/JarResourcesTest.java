@@ -40,7 +40,7 @@ public class JarResourcesTest {
     @Test
     public void shouldGetResourcesFromJarFile() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");
-        IJarCreator jarCreator = JarCreatorBuilder.create("myApp", "1.0.0.0-dev2", Extruder.class, jarFile).build();
+        IJarCreator jarCreator = JarCreatorBuilder.create("myApp", "1.0.0.0-dev2", Extruder.class, jarFile, Extruder.class.getProtectionDomain().getCodeSource().getLocation()).build();
         jarCreator.addPackage(Extruder.class.getPackage().getName());
         jarCreator.create();
 

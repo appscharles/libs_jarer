@@ -16,13 +16,16 @@ public class PathResourceExtractor implements IPathResourceExtractor {
 
     private String packageName;
 
+    private URL locationClasses;
+
     /**
      * Instantiates a new Path resource extractor.
      *
      * @param packageName the package name
      */
-    public PathResourceExtractor(String packageName) {
+    public PathResourceExtractor(String packageName, URL locationClasses) {
         this.packageName = packageName;
+        this.locationClasses = locationClasses;
     }
 
     public List<PathResource> getPathResources() throws IOException {
@@ -43,7 +46,6 @@ public class PathResourceExtractor implements IPathResourceExtractor {
     }
 
     private URL getPackageURL() throws MalformedURLException {
-        URL classesLocation = PathResourceExtractor.class.getProtectionDomain().getCodeSource().getLocation();
-        return new URL(classesLocation.toString() + "/" + this.packageName.replace(".", "/"));
+        return new URL(this.locationClasses.toString() + "/" + this.packageName.replace(".", "/"));
     }
 }

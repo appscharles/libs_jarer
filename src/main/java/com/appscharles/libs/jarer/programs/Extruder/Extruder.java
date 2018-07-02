@@ -19,7 +19,7 @@ public class Extruder {
     public static void main(String[] args) {
         try {
             File jarFile = new File("file.jar");
-            IJarCreator jarCreator = JarCreatorBuilder.create("myApp", "1.0.0.0-dev2", Program2.class, jarFile).build();
+            IJarCreator jarCreator = JarCreatorBuilder.create("myApp", "1.0.0.0-dev2", Program2.class, jarFile, Extruder.class.getProtectionDomain().getCodeSource().getLocation()).build();
             jarCreator.addPackage(Program2.class.getPackage().getName());
             jarCreator.create();
         } catch (Exception e) {

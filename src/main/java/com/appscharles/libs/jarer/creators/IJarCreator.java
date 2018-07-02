@@ -3,7 +3,7 @@ package com.appscharles.libs.jarer.creators;
 /**
  * The interface Jar creator.
  */
-public interface IJarCreator extends ICreateable {
+public interface IJarCreator extends ICreatable {
 
     /**
      * Add class.
@@ -15,7 +15,15 @@ public interface IJarCreator extends ICreateable {
     /**
      * Add package.
      *
-     * @param name the name
+     * @param packageName the package name
      */
-    void addPackage(String name);
+    void addPackage(String packageName);
+
+    /**
+     * Add package.
+     *
+     * @param packageName the package name
+     * @param moduleName  the module name
+     */
+    void addPackage(String name, String projectGroup, String projectArtifact);
 }

@@ -1,8 +1,8 @@
 package com.appscharles.libs.jarer.adders;
 
 import com.appscharles.libs.jarer.exceptions.JarerException;
-import com.appscharles.libs.jarer.preparators.PathPreparator;
 import com.appscharles.libs.jarer.models.PathResource;
+import com.appscharles.libs.jarer.preparators.PathPreparator;
 
 import java.io.IOException;
 import java.io.InputStream;

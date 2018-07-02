@@ -1,7 +1,9 @@
 package com.appscharles.libs.jarer.resources;
 
+import com.appscharles.libs.jarer.exceptions.JarerException;
 import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
 import com.appscharles.libs.jarer.extractors.PathResourceExtractor;
+import com.appscharles.libs.jarer.models.Package;
 import com.appscharles.libs.jarer.models.PathResource;
 import com.appscharles.libs.jarer.programs.Extruder.Extruder;
 import org.junit.Assert;
@@ -21,8 +23,8 @@ public class PathResourceExtractorTest {
      * @throws IOException the io exception
      */
     @Test
-    public void shouldGetRelativeFilesOfPackage() throws IOException {
-        IPathResourceExtractor pathResourceExtractor = new PathResourceExtractor(Extruder.class.getPackage().getName(), Extruder.class.getProtectionDomain().getCodeSource().getLocation());
+    public void shouldGetRelativeFilesOfPackage() throws  JarerException {
+        IPathResourceExtractor pathResourceExtractor = new PathResourceExtractor(new Package(Extruder.class.getPackage().getName()), Extruder.class.getProtectionDomain().getCodeSource().getLocation());
         List<PathResource> pathResources = pathResourceExtractor.getPathResources();
         Assert.assertTrue(pathResources.size() > 0);
     }

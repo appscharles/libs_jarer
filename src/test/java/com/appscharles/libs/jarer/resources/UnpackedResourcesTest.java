@@ -1,5 +1,6 @@
 package com.appscharles.libs.jarer.resources;
 
+import com.appscharles.libs.jarer.exceptions.JarerException;
 import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
 import com.appscharles.libs.jarer.models.PathResource;
 import com.appscharles.libs.jarer.programs.Extruder.Extruder;
@@ -21,7 +22,7 @@ public class UnpackedResourcesTest {
      * @throws IOException the io exception
      */
     @Test
-    public void shouldGetFilesFromPackage() throws IOException {
+    public void shouldGetFilesFromPackage() throws  JarerException {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         URL packageURL =  loader.getResource(Extruder.class.getPackage().getName().replace(".", "/"));
 

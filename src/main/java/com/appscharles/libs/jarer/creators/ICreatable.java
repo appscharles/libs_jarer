@@ -5,7 +5,7 @@ import com.appscharles.libs.jarer.exceptions.JarerException;
 /**
  * The interface Createable.
  */
-public interface ICreateable {
+public interface ICreatable {
 
     /**
      * Create.

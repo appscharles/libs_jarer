@@ -3,6 +3,7 @@ package com.appscharles.libs.jarer.resources;
 import com.appscharles.libs.ioer.converters.RelativeFileConverter;
 import com.appscharles.libs.ioer.models.RelativeFile;
 import com.appscharles.libs.ioer.services.DirReader;
+import com.appscharles.libs.jarer.exceptions.JarerException;
 import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
 import com.appscharles.libs.jarer.models.PathResource;
 
@@ -36,7 +37,7 @@ public class UnpackedResource implements IPathResourceExtractor {
     }
 
     @Override
-    public List<PathResource> getPathResources() throws IOException {
+    public List<PathResource> getPathResources() throws JarerException {
         try {
             List<PathResource> pathResources = new ArrayList<>();
             Path path = Paths.get(this.packageURL.toURI());
@@ -50,7 +51,7 @@ public class UnpackedResource implements IPathResourceExtractor {
             }
             return pathResources;
         } catch (IOException | URISyntaxException e) {
-            throw new IOException(e);
+            throw new JarerException(e);
         }
     }
 }

@@ -6,10 +6,11 @@ import com.appscharles.libs.jarer.adders.PackageAdder;
 import com.appscharles.libs.jarer.exceptions.JarerException;
 import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
 import com.appscharles.libs.jarer.extractors.PathResourceExtractor;
+import com.appscharles.libs.jarer.models.Package;
 import com.appscharles.libs.jarer.models.PathResource;
+import com.appscharles.libs.jarer.services.PathResourceUnduplicator;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,9 @@ public abstract class AbstractJarCreator implements IJarCreator {
      */
     protected Manifest manifest;
 
+    /**
+     * The Location classes.
+     */
     protected URL locationClasses;
 
     /**
@@ -41,13 +45,14 @@ public abstract class AbstractJarCreator implements IJarCreator {
     /**
      * The Packages.
      */
-    protected List<String> packages;
+    protected List<Package> packages;
 
     /**
      * Instantiates a new Abstract jar creator.
      *
-     * @param jarFile  the jar file
-     * @param manifest the manifest
+     * @param jarFile         the jar file
+     * @param manifest        the manifest
+     * @param locationClasses the location classes
      */
     public AbstractJarCreator(File jarFile, Manifest manifest, URL locationClasses) {
         this.jarFile = jarFile;
@@ -81,19 +86,23 @@ public abstract class AbstractJarCreator implements IJarCreator {
      * @throws JarerException the jarer exception
      */
     protected void loadPackages(JarOutputStream jarOutputStream) throws JarerException {
-        try {
-            for (String packageName : this.packages) {
-                IPathResourceExtractor rFR = new PathResourceExtractor(packageName, this.locationClasses);
-                List<PathResource> pathResources = rFR.getPathResources();
-                IAdder adder = new PackageAdder(pathResources, jarOutputStream);
-                adder.add();
-            }
-        } catch (IOException e) {
-            throw new JarerException(e);
+        List<PathResource> pathResources = new ArrayList<>();
+        for (Package aPackage : this.packages) {
+            IPathResourceExtractor rFR = new PathResourceExtractor(aPackage, this.locationClasses );
+            List<PathResource> p = rFR.getPathResources();
+            pathResources.addAll(p);
         }
+        pathResources = PathResourceUnduplicator.unduplicate(pathResources);
+        IAdder adder = new PackageAdder(pathResources, jarOutputStream);
+        adder.add();
     }
 
-    public void addPackage(String name){
-        this.packages.add(name);
+    public void addPackage(String name, String projectGroup, String projectArtifact){
+        this.packages.add(new Package(name, projectGroup, projectArtifact));
     }
+
+    public void addPackage(String packageName){
+        this.packages.add(new Package(packageName, null, null));
+    }
+
 }

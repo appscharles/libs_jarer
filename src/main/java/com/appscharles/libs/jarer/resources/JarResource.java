@@ -1,5 +1,6 @@
 package com.appscharles.libs.jarer.resources;
 
+import com.appscharles.libs.jarer.exceptions.JarerException;
 import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
 import com.appscharles.libs.jarer.models.PathResource;
 
@@ -32,7 +33,7 @@ public class JarResource implements IPathResourceExtractor {
     }
 
     @Override
-    public List<PathResource> getPathResources() throws IOException {
+    public List<PathResource> getPathResources() throws JarerException {
         try {
             List<PathResource> pathResources = new ArrayList<>();
             JarURLConnection connection = (JarURLConnection) this.packageURL.openConnection();
@@ -48,7 +49,7 @@ public class JarResource implements IPathResourceExtractor {
             }
             return pathResources;
         } catch (IOException e) {
-            throw new IOException(e);
+            throw new JarerException(e);
         }
     }
 }

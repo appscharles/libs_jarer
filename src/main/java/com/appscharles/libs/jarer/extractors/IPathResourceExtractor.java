@@ -1,5 +1,6 @@
 package com.appscharles.libs.jarer.extractors;
 
+import com.appscharles.libs.jarer.exceptions.JarerException;
 import com.appscharles.libs.jarer.models.PathResource;
 
 import java.io.IOException;
@@ -16,5 +17,5 @@ public interface IPathResourceExtractor {
      * @return the path resources
      * @throws IOException the io exception
      */
-    List<PathResource> getPathResources() throws IOException;
+    List<PathResource> getPathResources() throws JarerException;
 }

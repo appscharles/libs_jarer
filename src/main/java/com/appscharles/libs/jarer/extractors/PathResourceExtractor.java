@@ -1,11 +1,12 @@
 package com.appscharles.libs.jarer.extractors;
 
+import com.appscharles.libs.jarer.exceptions.JarerException;
+import com.appscharles.libs.jarer.models.Package;
 import com.appscharles.libs.jarer.models.PathResource;
 import com.appscharles.libs.jarer.resources.JarResource;
 import com.appscharles.libs.jarer.resources.UnpackedResource;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -14,44 +15,37 @@ import java.util.List;
  */
 public class PathResourceExtractor implements IPathResourceExtractor {
 
-    private String packageName;
+    private Package aPackage;
 
     private URL locationClasses;
 
-    /**
-     * Instantiates a new Path resource extractor.
-     *
-     * @param packageName the package name
-     */
-    public PathResourceExtractor(String packageName, URL locationClasses) {
-        this.packageName = packageName;
+    public PathResourceExtractor(Package aPackage, URL locationClasses) {
+        this.aPackage = aPackage;
         this.locationClasses = locationClasses;
     }
 
-    public List<PathResource> getPathResources() throws IOException {
+    public List<PathResource> getPathResources() throws JarerException {
         try {
             String packageURL = getPackageURL().toString();
             if (packageURL.startsWith("file:/")) {
-                IPathResourceExtractor unpackedResources = new UnpackedResource(new URL(packageURL), this.packageName);
+                IPathResourceExtractor unpackedResources = new UnpackedResource(new URL(packageURL), this.aPackage.getName());
                 return unpackedResources.getPathResources();
             } else if (packageURL.startsWith("jar:file:/")) {
-                IPathResourceExtractor jarResources = new JarResource(new URL(packageURL),this.packageName);
+                IPathResourceExtractor jarResources = new JarResource(new URL(packageURL),this.aPackage.getName());
                 return jarResources.getPathResources();
             } else {
                 throw new IOException("URL is not supported: " + packageURL);
             }
-        } catch (IOException e) {
-            throw new IOException(e);
+        } catch (JarerException | IOException e) {
+            throw new JarerException(e);
         }
     }
 
-    private URL getPackageURL() throws MalformedURLException {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        URL packageURL = loader.getResource(this.packageName.replace(".", "/"));
-        if (packageURL.toString().startsWith("file:/")){
-            return new URL(this.locationClasses.toString()  + this.packageName.replace(".", "/"));
+    private URL getPackageURL() throws IOException, JarerException {
+        if (this.aPackage.isModule() == false){
+            return PackageURLExtractor.extract(this.aPackage, this.locationClasses);
         } else {
-            return packageURL;
+            return PackageURLExtractor.extract(this.aPackage);
         }
     }
 }

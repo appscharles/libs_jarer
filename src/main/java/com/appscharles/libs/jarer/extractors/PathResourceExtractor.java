@@ -1,10 +1,11 @@
 package com.appscharles.libs.jarer.extractors;
 
-import com.appscharles.libs.jarer.resources.JarResource;
 import com.appscharles.libs.jarer.models.PathResource;
+import com.appscharles.libs.jarer.resources.JarResource;
 import com.appscharles.libs.jarer.resources.UnpackedResource;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -41,8 +42,8 @@ public class PathResourceExtractor implements IPathResourceExtractor {
         }
     }
 
-    private URL getPackageURL() {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        return loader.getResource(this.packageName.replace(".", "/"));
+    private URL getPackageURL() throws MalformedURLException {
+        URL classesLocation = PathResourceExtractor.class.getProtectionDomain().getCodeSource().getLocation();
+        return new URL(classesLocation.toString() + "/" + this.packageName.replace(".", "/"));
     }
 }

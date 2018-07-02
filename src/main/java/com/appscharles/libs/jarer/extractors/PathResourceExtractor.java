@@ -46,6 +46,12 @@ public class PathResourceExtractor implements IPathResourceExtractor {
     }
 
     private URL getPackageURL() throws MalformedURLException {
-        return new URL(this.locationClasses.toString() + "/" + this.packageName.replace(".", "/"));
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        URL packageURL = loader.getResource(this.packageName.replace(".", "/"));
+        if (packageURL.toString().startsWith("file:/")){
+            return new URL(this.locationClasses.toString()  + this.packageName.replace(".", "/"));
+        } else {
+            return packageURL;
+        }
     }
 }

@@ -105,4 +105,8 @@ public abstract class AbstractJarCreator implements IJarCreator {
         this.packages.add(new Package(packageName, null, null));
     }
 
+    @Override
+    public Manifest getManifest() {
+        return this.manifest;
+    }
 }

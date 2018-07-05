@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Unpacked resources.
+ * The type Unpacked resource.
  */
 public class UnpackedResource implements IPathResourceExtractor {
 
@@ -26,7 +26,7 @@ public class UnpackedResource implements IPathResourceExtractor {
     private String packageName;
 
     /**
-     * Instantiates a new Unpacked resources.
+     * Instantiates a new Unpacked resource.
      *
      * @param packageURL  the package url
      * @param packageName the package name

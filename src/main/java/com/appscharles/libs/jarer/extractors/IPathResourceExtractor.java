@@ -15,7 +15,7 @@ public interface IPathResourceExtractor {
      * Gets path resources.
      *
      * @return the path resources
-     * @throws IOException the io exception
+     * @throws JarerException the jarer exception
      */
     List<PathResource> getPathResources() throws JarerException;
 }

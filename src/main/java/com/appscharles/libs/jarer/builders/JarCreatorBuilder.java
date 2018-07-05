@@ -36,10 +36,11 @@ public class JarCreatorBuilder {
     /**
      * Create jar creator builder.
      *
-     * @param projectName the project name
-     * @param version     the version
-     * @param mainClass   the main class
-     * @param jarFile     the jar file
+     * @param projectName     the project name
+     * @param version         the version
+     * @param mainClass       the main class
+     * @param jarFile         the jar file
+     * @param locationClasses the location classes
      * @return the jar creator builder
      */
     public static JarCreatorBuilder create(String projectName, String version, Class mainClass, File jarFile, URL locationClasses) {

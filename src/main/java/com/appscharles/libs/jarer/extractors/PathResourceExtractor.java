@@ -19,6 +19,12 @@ public class PathResourceExtractor implements IPathResourceExtractor {
 
     private URL locationClasses;
 
+    /**
+     * Instantiates a new Path resource extractor.
+     *
+     * @param aPackage        the a package
+     * @param locationClasses the location classes
+     */
     public PathResourceExtractor(Package aPackage, URL locationClasses) {
         this.aPackage = aPackage;
         this.locationClasses = locationClasses;

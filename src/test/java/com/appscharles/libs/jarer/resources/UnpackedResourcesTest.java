@@ -19,7 +19,7 @@ public class UnpackedResourcesTest {
     /**
      * Should get files from package.
      *
-     * @throws IOException the io exception
+     * @throws JarerException the jarer exception
      */
     @Test
     public void shouldGetFilesFromPackage() throws  JarerException {

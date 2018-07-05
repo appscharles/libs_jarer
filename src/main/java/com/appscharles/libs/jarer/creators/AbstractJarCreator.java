@@ -97,15 +97,14 @@ public abstract class AbstractJarCreator implements IJarCreator {
         adder.add();
     }
 
-    public void addPackage(String name, String projectGroup, String projectArtifact){
-        this.packages.add(new Package(name, projectGroup, projectArtifact));
+    public void addPackage(String name, String projectGroup, String projectArtifact, String version){
+        this.packages.add(new Package(name, projectGroup, projectArtifact, version));
     }
 
     public void addPackage(String packageName){
-        this.packages.add(new Package(packageName, null, null));
+        this.packages.add(new Package(packageName, null, null, null));
     }
 
-    @Override
     public Manifest getManifest() {
         return this.manifest;
     }

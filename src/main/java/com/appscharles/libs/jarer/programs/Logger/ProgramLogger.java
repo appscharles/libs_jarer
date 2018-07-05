@@ -8,13 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 02.07.2018
- * Time: 15:15
- * Project name: jarer
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Program logger.
  */
 public class ProgramLogger {
 
@@ -24,6 +18,11 @@ public class ProgramLogger {
     }
     private static final Logger logger = LogManager.getLogger(ProgramLogger.class);
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String[] args){
         System.out.println("Program launched");
         logger.debug("debug");

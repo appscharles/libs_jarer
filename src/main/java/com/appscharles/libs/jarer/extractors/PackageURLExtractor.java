@@ -44,10 +44,10 @@ public class PackageURLExtractor {
         Enumeration<URL> packageURLs = loader.getResources(aPackage.getName().replace(".", "/"));
         while(packageURLs.hasMoreElements()){
             URL url = packageURLs.nextElement();
-            if (url.toString().replace("\\", "/").contains(aPackage.getProjectGroup() + "/" + aPackage.getProjectArtifact())){
+            if (url.toString().replace("\\", "/").contains(aPackage.getProjectGroup() + "/" + aPackage.getProjectArtifact() + "/" + aPackage.getVersion() + "/")){
                 return url;
             }
         }
-        throw new JarerException("Not found package in project group "+ aPackage.getProjectGroup() + " in project artifact "+ aPackage.getProjectArtifact());
+        throw new JarerException("Not found package in project group "+ aPackage.getProjectGroup() + " in project artifact "+ aPackage.getProjectArtifact() + " for version " + aPackage.getVersion());
     }
 }

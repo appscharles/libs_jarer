@@ -11,6 +11,8 @@ public class Package {
 
     private String projectArtifact;
 
+    private String version;
+
     private Boolean module;
 
     /**
@@ -19,7 +21,7 @@ public class Package {
      * @param name the name
      */
     public Package(String name) {
-        this(name, null, null);
+        this(name, null, null, null);
     }
 
     /**
@@ -28,11 +30,13 @@ public class Package {
      * @param name            the name
      * @param projectGroup    the project group
      * @param projectArtifact the project artifact
+     * @param version         the version
      */
-    public Package(String name, String projectGroup, String projectArtifact) {
+    public Package(String name, String projectGroup, String projectArtifact, String version) {
         this.name = name;
         this.projectGroup = projectGroup;
         this.projectArtifact = projectArtifact;
+        this.version = version;
         this.module = this.projectGroup != null;
     }
 
@@ -61,6 +65,15 @@ public class Package {
      */
     public String getProjectArtifact() {
         return projectArtifact;
+    }
+
+    /**
+     * Gets version.
+     *
+     * @return the version
+     */
+    public String getVersion() {
+        return version;
     }
 
     /**

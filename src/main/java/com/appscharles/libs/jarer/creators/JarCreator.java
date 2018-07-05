@@ -17,8 +17,9 @@ public class JarCreator extends AbstractJarCreator {
     /**
      * Instantiates a new Jar creator.
      *
-     * @param jarFile  the jar file
-     * @param manifest the manifest
+     * @param jarFile         the jar file
+     * @param manifest        the manifest
+     * @param locationClasses the location classes
      */
     public JarCreator(File jarFile, Manifest manifest, URL locationClasses) {
         super(jarFile, manifest, locationClasses);

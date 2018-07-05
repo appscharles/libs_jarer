@@ -20,7 +20,7 @@ public class PathResourceExtractorTest {
     /**
      * Should get relative files of package.
      *
-     * @throws IOException the io exception
+     * @throws JarerException the jarer exception
      */
     @Test
     public void shouldGetRelativeFilesOfPackage() throws  JarerException {

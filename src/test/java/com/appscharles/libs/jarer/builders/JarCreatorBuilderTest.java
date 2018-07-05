@@ -50,14 +50,21 @@ public class JarCreatorBuilderTest {
         Assert.assertTrue(result.getOutput().contains("launched"));
     }
 
+    /**
+     * Should launch jar with module of package.
+     *
+     * @throws IOException        the io exception
+     * @throws JarerException     the jarer exception
+     * @throws ProcesserException the processer exception
+     */
     @Test
     public void shouldLaunchJarWithModuleOfPackage() throws IOException, JarerException, ProcesserException {
         File jarFile = new File(this.temp.newFolder(), "file.jar");
         IJarCreator jarCreator = JarCreatorBuilder.create("myApp", "1.0.0.0-dev2", ProgramLogger.class, jarFile, ProgramLogger.class.getProtectionDomain().getCodeSource().getLocation()).build();
         jarCreator.addClass(ProgramLogger.class);
         jarCreator.addClass(NamePrinter.class);
-        jarCreator.addPackage("org.apache.logging.log4j", "org.apache.logging.log4j", "log4j-api");
-        jarCreator.addPackage("org.apache.logging.log4j.core", "org.apache.logging.log4j", "log4j-core");
+        jarCreator.addPackage("org.apache.logging.log4j", "org.apache.logging.log4j", "log4j-api", "2.11.0");
+        jarCreator.addPackage("org.apache.logging.log4j.core", "org.apache.logging.log4j", "log4j-core", "2.11.0");
         jarCreator.addPackage("com.appscharles.libs.logger");
         jarCreator.create();
         ICommanderCaller commanderCaller = new CommanderCaller();

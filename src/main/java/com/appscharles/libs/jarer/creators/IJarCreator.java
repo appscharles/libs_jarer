@@ -27,8 +27,9 @@ public interface IJarCreator extends ICreatable {
      * @param name            the name
      * @param projectGroup    the project group
      * @param projectArtifact the project artifact
+     * @param version         the version
      */
-    void addPackage(String name, String projectGroup, String projectArtifact);
+    void addPackage(String name, String projectGroup, String projectArtifact, String version);
 
     /**
      * Gets manifest.

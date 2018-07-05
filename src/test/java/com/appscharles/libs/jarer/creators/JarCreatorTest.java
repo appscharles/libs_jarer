@@ -43,6 +43,29 @@ public class JarCreatorTest {
         JarCreator jarCreator = new JarCreator(jarFile, manifest, Extruder.class.getProtectionDomain().getCodeSource().getLocation());
         jarCreator.addClass(Program.class);
         jarCreator.addClass(NamePrinter.class);
+        jarCreator.addPackage("org.apache.logging.log4j", "org.apache.logging.log4j", "log4j-api", "2.11.0");
+        jarCreator.create();
+        ICommanderCaller commanderCaller = new CommanderCaller();
+        CommanderResult result = commanderCaller.call("java -jar " + jarFile.getPath());
+        Assert.assertFalse(result.getOutput(),result.isError());
+        Assert.assertTrue(result.getOutput().contains("launched"));
+    }
+
+    /**
+     * Should create jar file with exception.
+     *
+     * @throws IOException        the io exception
+     * @throws JarerException     the jarer exception
+     * @throws ProcesserException the processer exception
+     */
+    @Test(expected = JarerException.class)
+    public void shouldCreateJarFileWithException() throws IOException, JarerException, ProcesserException {
+        File jarFile = new File(this.temp.newFolder(), "file.jar");
+        Manifest manifest = ManifestBuilder.create("myApp", "1.0.0.0-dev2", Program.class).build();
+        JarCreator jarCreator = new JarCreator(jarFile, manifest, Extruder.class.getProtectionDomain().getCodeSource().getLocation());
+        jarCreator.addClass(Program.class);
+        jarCreator.addClass(NamePrinter.class);
+        jarCreator.addPackage("org.apache.logging.log4j", "org.apache.logging.log4j", "log4j-api", "2.11.1");
         jarCreator.create();
         ICommanderCaller commanderCaller = new CommanderCaller();
         CommanderResult result = commanderCaller.call("java -jar " + jarFile.getPath());

@@ -13,7 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * The type Jar resources.
+ * The type Jar resource.
  */
 public class JarResource implements IPathResourceExtractor {
 
@@ -22,7 +22,7 @@ public class JarResource implements IPathResourceExtractor {
     private String packageName;
 
     /**
-     * Instantiates a new Jar resources.
+     * Instantiates a new Jar resource.
      *
      * @param packageURL  the package url
      * @param packageName the package name

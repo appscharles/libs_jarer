@@ -3,7 +3,7 @@ package com.appscharles.libs.jarer.creators;
 import com.appscharles.libs.jarer.exceptions.JarerException;
 
 /**
- * The interface Createable.
+ * The interface Creatable.
  */
 public interface ICreatable {
 

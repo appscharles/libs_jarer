@@ -23,9 +23,6 @@ public class FilePackageURLExtractor extends AbstractPackageURLExtractor {
         if (this.aPackage.getPackageURL() == null){
             return null;
         }
-        if (this.aPackage.getPackageURL().toString().replace("\\", "/").contains(this.aPackage.getProjectGroup() + "/" + this.aPackage.getProjectArtifact() + "/" + this.aPackage.getVersion() + "/")){
-            return this.aPackage.getPackageURL();
-        }
-        return null;
+        return this.aPackage.getPackageURL();
     }
 }

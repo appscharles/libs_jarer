@@ -32,12 +32,12 @@ public class PathResourceExtractor implements IPathResourceExtractor {
 
     public List<PathResource> getPathResources() throws JarerException {
         try {
-            String packageURL = getPackageURL().toString();
+            String packageURL = PackageURLExtractor.extract(this.aPackage, this.locationClasses).toString();
             if (packageURL.startsWith("file:/")) {
-                IPathResourceExtractor unpackedResources = new UnpackedResource(new URL(packageURL), this.aPackage.getName());
+                IPathResourceExtractor unpackedResources = new UnpackedResource(new URL(packageURL), this.aPackage.getPackageName());
                 return unpackedResources.getPathResources();
             } else if (packageURL.startsWith("jar:file:/")) {
-                IPathResourceExtractor jarResources = new JarResource(new URL(packageURL),this.aPackage.getName());
+                IPathResourceExtractor jarResources = new JarResource(new URL(packageURL),this.aPackage.getPackageName());
                 return jarResources.getPathResources();
             } else {
                 throw new IOException("URL is not supported: " + packageURL);
@@ -47,11 +47,4 @@ public class PathResourceExtractor implements IPathResourceExtractor {
         }
     }
 
-    private URL getPackageURL() throws IOException, JarerException {
-        if (this.aPackage.isModule() == false){
-            return PackageURLExtractor.extract(this.aPackage, this.locationClasses);
-        } else {
-            return PackageURLExtractor.extract(this.aPackage);
-        }
-    }
 }

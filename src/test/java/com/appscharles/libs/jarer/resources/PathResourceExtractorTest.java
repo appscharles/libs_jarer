@@ -9,7 +9,6 @@ import com.appscharles.libs.jarer.programs.Extruder.Extruder;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

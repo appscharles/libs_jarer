@@ -1,11 +1,13 @@
 package com.appscharles.libs.jarer.models;
 
+import java.net.URL;
+
 /**
  * The type Package.
  */
 public class Package {
 
-    private String name;
+    private String packageName;
 
     private String projectGroup;
 
@@ -13,40 +15,64 @@ public class Package {
 
     private String version;
 
-    private Boolean module;
+    private URL packageURL;
 
     /**
      * Instantiates a new Package.
      *
-     * @param name the name
+     * @param packageName the package name
      */
-    public Package(String name) {
-        this(name, null, null, null);
+    public Package(String packageName) {
+        this(packageName, null, null, null, null);
     }
 
     /**
      * Instantiates a new Package.
      *
-     * @param name            the name
+     * @param packageURL the package url
+     */
+    public Package(String packageName, URL packageURL ) {
+        this(packageName, null, null, null, packageURL);
+    }
+
+    /**
+     * Instantiates a new Package.
+     *
+     * @param packageName     the package name
      * @param projectGroup    the project group
      * @param projectArtifact the project artifact
      * @param version         the version
      */
-    public Package(String name, String projectGroup, String projectArtifact, String version) {
-        this.name = name;
+    public Package(String packageName, String projectGroup, String projectArtifact, String version) {
+        this(packageName, projectGroup, projectArtifact, version, null);
+    }
+
+
+    /**
+     * Instantiates a new Package.
+     *
+     * @param packageName     the package name
+     * @param projectGroup    the project group
+     * @param projectArtifact the project artifact
+     * @param version         the version
+     * @param packageURL      the package url
+     * @param resourcePackage the resource package
+     */
+    public Package(String packageName, String projectGroup, String projectArtifact, String version, URL packageURL) {
+        this.packageName = packageName;
         this.projectGroup = projectGroup;
         this.projectArtifact = projectArtifact;
         this.version = version;
-        this.module = this.projectGroup != null;
+        this.packageURL = packageURL;
     }
 
     /**
-     * Gets name.
+     * Gets package name.
      *
-     * @return the name
+     * @return the package name
      */
-    public String getName() {
-        return name;
+    public String getPackageName() {
+        return packageName;
     }
 
     /**
@@ -77,11 +103,12 @@ public class Package {
     }
 
     /**
-     * Is module boolean.
+     * Gets package url.
      *
-     * @return the boolean
+     * @return the package url
      */
-    public Boolean isModule() {
-        return module;
+    public URL getPackageURL() {
+        return packageURL;
     }
+
 }

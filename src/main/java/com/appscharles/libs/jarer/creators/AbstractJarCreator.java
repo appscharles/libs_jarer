@@ -1,14 +1,8 @@
 package com.appscharles.libs.jarer.creators;
 
-import com.appscharles.libs.jarer.adders.ClassAdder;
-import com.appscharles.libs.jarer.adders.IAdder;
-import com.appscharles.libs.jarer.adders.PackageAdder;
 import com.appscharles.libs.jarer.exceptions.JarerException;
-import com.appscharles.libs.jarer.extractors.IPathResourceExtractor;
-import com.appscharles.libs.jarer.extractors.PathResourceExtractor;
-import com.appscharles.libs.jarer.models.Package;
-import com.appscharles.libs.jarer.models.PathResource;
-import com.appscharles.libs.jarer.services.PathResourceUnduplicator;
+import com.appscharles.libs.jarer.includers.IDependencyIncluder;
+import com.appscharles.libs.jarer.models.Dependency;
 
 import java.io.File;
 import java.net.URL;
@@ -18,7 +12,7 @@ import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 
 /**
- * The type Abstract jar creator.
+ * The type Abstract jar creator 2.
  */
 public abstract class AbstractJarCreator implements IJarCreator {
 
@@ -33,88 +27,69 @@ public abstract class AbstractJarCreator implements IJarCreator {
     protected Manifest manifest;
 
     /**
-     * The Location classes.
+     * The Dependencies.
      */
-    protected URL locationClasses;
+    protected List<Dependency> dependencies;
 
     /**
-     * The Classes.
+     * The Dependency includers.
      */
-    protected List<Class> classes;
+    protected List<IDependencyIncluder> dependencyIncluders;
+
+    protected List<String> addedZipEntryNames;
 
     /**
-     * The Packages.
-     */
-    protected List<Package> packages;
-
-    /**
-     * Instantiates a new Abstract jar creator.
+     * Instantiates a new Abstract jar creator 2.
      *
-     * @param jarFile         the jar file
-     * @param manifest        the manifest
-     * @param locationClasses the location classes
+     * @param jarFile  the jar file
+     * @param manifest the manifest
      */
-    public AbstractJarCreator(File jarFile, Manifest manifest, URL locationClasses) {
+    public AbstractJarCreator(File jarFile, Manifest manifest) {
         this.jarFile = jarFile;
         this.manifest = manifest;
-        this.locationClasses = locationClasses;
-        this.classes = new ArrayList<>();
-        this.packages = new ArrayList<>();
+        this.dependencies = new ArrayList<>();
+        this.dependencyIncluders = new ArrayList<>();
+this.addedZipEntryNames = new ArrayList<>();
     }
 
-    public void addClass(Class clazz){
-        this.classes.add(clazz);
+    @Override
+    public void addDependency(Dependency dependency) {
+        this.dependencies.add(dependency);
     }
 
-    /**
-     * Load classes.
-     *
-     * @param jarOutputStream the jar output stream
-     * @throws JarerException the jarer exception
-     */
-    protected void loadClasses(JarOutputStream jarOutputStream) throws JarerException {
-        for (Class clazz : this.classes) {
-            IAdder adder = new ClassAdder(clazz, jarOutputStream);
-            adder.add();
-        }
+    @Override
+    public void addDependency(String resource, URL location) {
+        this.dependencies.add(new Dependency(resource, location));
     }
 
-    /**
-     * Load packages.
-     *
-     * @param jarOutputStream the jar output stream
-     * @throws JarerException the jarer exception
-     */
-    protected void loadPackages(JarOutputStream jarOutputStream) throws JarerException {
-        List<PathResource> pathResources = new ArrayList<>();
-        for (Package aPackage : this.packages) {
-            IPathResourceExtractor rFR = new PathResourceExtractor(aPackage, this.locationClasses );
-            List<PathResource> p = rFR.getPathResources();
-            pathResources.addAll(p);
-        }
-        pathResources = PathResourceUnduplicator.unduplicate(pathResources);
-        IAdder adder = new PackageAdder(pathResources, jarOutputStream);
-        adder.add();
-    }
-
-    public void addPackage(String packageName, String projectGroup, String projectArtifact, String version){
-        this.packages.add(new Package(packageName, projectGroup, projectArtifact, version));
-    }
-
-    public void addPackage(String packageName){
-        this.packages.add(new Package(packageName));
-    }
-
-    /**
-     * Add package.
-     *
-     * @param packageURL the package url
-     */
-    public void addPackage(String packageName, URL packageURL){
-        this.packages.add(new Package(packageName,packageURL));
-    }
-
+    @Override
     public Manifest getManifest() {
         return this.manifest;
+    }
+
+    @Override
+    public List<IDependencyIncluder> getDependencyIncluders() {
+        return this.dependencyIncluders;
+    }
+
+    /**
+     * Include dependency.
+     *
+     * @param dependency the dependency
+     * @param jos        the jos
+     */
+    protected void includeDependency(Dependency dependency, JarOutputStream jos) throws JarerException {
+        Boolean dependencyIncluded = false;
+
+        for (IDependencyIncluder dependencyIncluder : this.dependencyIncluders) {
+            if (dependencyIncluder.validate(dependency) == false) {
+                continue;
+            }
+            dependencyIncluder.include(dependency, jos, this.addedZipEntryNames);
+            dependencyIncluded = true;
+        }
+        if (dependencyIncluded == false) {
+            throw new JarerException("Not include resource '" + dependency.getResource() + "' of dependency '" + dependency.getLocation() + "' to jar.");
+        }
     }
 }

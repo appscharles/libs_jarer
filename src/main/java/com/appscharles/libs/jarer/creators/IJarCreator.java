@@ -1,49 +1,16 @@
 package com.appscharles.libs.jarer.creators;
 
-import java.net.URL;
-import java.util.jar.Manifest;
+import com.appscharles.libs.jarer.exceptions.JarerException;
 
 /**
- * The interface Jar creator.
+ * The interface Jar creator 2.
  */
-public interface IJarCreator extends ICreatable {
+public interface IJarCreator extends IDependable, IManifestable, IDependencyIncludable, ICreatable {
 
     /**
-     * Add class.
+     * Create.
      *
-     * @param clazz the clazz
+     * @throws JarerException the jarer exception
      */
-    void addClass(Class clazz);
-
-    /**
-     * Add package.
-     *
-     * @param packageName     the package name
-     * @param projectGroup    the project group
-     * @param projectArtifact the project artifact
-     * @param version         the version
-     */
-    void addPackage(String packageName, String projectGroup, String projectArtifact, String version);
-
-    /**
-     * Add package.
-     *
-     * @param packageName the package name
-     */
-    void addPackage(String packageName);
-
-    /**
-     * Add package.
-     *
-     * @param packageName the package name
-     * @param packageURL  the package url
-     */
-    void addPackage(String packageName, URL packageURL);
-
-    /**
-     * Gets manifest.
-     *
-     * @return the manifest
-     */
-    Manifest getManifest();
+    void create() throws JarerException;
 }

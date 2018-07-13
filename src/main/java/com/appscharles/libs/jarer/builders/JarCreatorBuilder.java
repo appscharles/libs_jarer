@@ -2,6 +2,7 @@ package com.appscharles.libs.jarer.builders;
 
 import com.appscharles.libs.jarer.creators.IJarCreator;
 import com.appscharles.libs.jarer.creators.JarCreator;
+import com.appscharles.libs.jarer.models.Dependency;
 
 import java.io.File;
 import java.net.URL;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.jar.Manifest;
 
 /**
- * The type Jar creator builder.
+ * The type Jar creator 2 builder.
  */
 public class JarCreatorBuilder {
 
@@ -20,50 +21,40 @@ public class JarCreatorBuilder {
 
     private File jarFile;
 
-    private List<Class> classes;
-
-    private List<String> packages;
+    private List<Dependency> dependencies;
 
     private IJarCreator jarCreator;
 
-    private URL locationClasses;
-
     private JarCreatorBuilder() {
-        this.classes = new ArrayList<>();
-        this.packages = new ArrayList<>();
+        this.dependencies = new ArrayList<>();
     }
 
     /**
-     * Create jar creator builder.
+     * Create jar creator 2 builder.
      *
-     * @param projectName     the project name
-     * @param version         the version
-     * @param mainClass       the main class
-     * @param jarFile         the jar file
-     * @param locationClasses the location classes
-     * @return the jar creator builder
+     * @param projectName the project name
+     * @param version     the version
+     * @param mainClass   the main class
+     * @param jarFile     the jar file
+     * @return the jar creator 2 builder
      */
-    public static JarCreatorBuilder create(String projectName, String version, Class mainClass, File jarFile, URL locationClasses) {
+    public static JarCreatorBuilder create(String projectName, String version, Class mainClass, File jarFile) {
         JarCreatorBuilder instance = new JarCreatorBuilder();
         instance.mainClass = mainClass;
         instance.jarFile = jarFile;
-        instance.locationClasses = locationClasses;
         instance.manifest = ManifestBuilder.create(projectName, version, instance.mainClass).build();
-        instance.jarCreator = new JarCreator(instance.jarFile, instance.manifest, instance.locationClasses);
+        instance.jarCreator = new JarCreator(instance.jarFile, instance.manifest);
         return instance;
     }
 
     /**
-     * Build jar creator.
+     * Build jar creator 2.
      *
-     * @return the jar creator
+     * @return the jar creator 2
      */
     public IJarCreator build() {
-        for (Class clazz : this.classes) {
-            this.jarCreator.addClass(clazz);
-        }
-        for (String packageName : this.packages) {
-            this.jarCreator.addPackage(packageName);
+        for (Dependency dependency : this.dependencies) {
+            this.jarCreator.addDependency(dependency);
         }
         return this.jarCreator;
     }
@@ -73,38 +64,31 @@ public class JarCreatorBuilder {
      *
      * @param manifest the manifest
      */
-    public void manifest(Manifest manifest) {
+    public JarCreatorBuilder manifest(Manifest manifest) {
         this.manifest = manifest;
+        return this;
     }
 
-    /**
-     * Add class.
-     *
-     * @param clazz the clazz
-     */
-    public void addClass(Class clazz){
-        if (this.classes.contains(clazz) == false){
-            this.classes.add(clazz);
-        }
-    }
 
     /**
-     * Add package.
+     * Add dependency.
      *
-     * @param packageName the package name
+     * @param dependency the dependency
      */
-    public void addPackage(String packageName){
-        if (this.packages.contains(packageName) == false){
-            this.packages.add(packageName);
-        }
+    public JarCreatorBuilder addDependency(Dependency dependency) {
+        this.dependencies.add(dependency);
+        return this;
     }
 
+
     /**
-     * Jar creator.
+     * Add dependency.
      *
-     * @param jarCreator the jar creator
+     * @param resource the resource
+     * @param location the location
      */
-    public void jarCreator(IJarCreator jarCreator) {
-        this.jarCreator = jarCreator;
+    public JarCreatorBuilder addDependency(String resource, URL location) {
+        this.dependencies.add(new Dependency(resource, location));
+        return this;
     }
 }

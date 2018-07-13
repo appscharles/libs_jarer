@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.appscharles.libs'
-version '1.0.0.0-dev14'
+version '1.0.0.0-dev16'
 
 sourceCompatibility = 1.8
 
@@ -21,7 +21,6 @@ repositories {
 }
 dependencies {
     compile group: 'com.appscharles.libs', name: 'processer', version: '1.0.0.0-dev4'
-
     compile group: 'com.appscharles.libs', name: 'logger', version: '1.0.0.0-dev7'
     compile group: 'com.appscharles.libs', name: 'ioer', version: '1.0.0.0-dev3'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.0'

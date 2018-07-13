@@ -26,6 +26,6 @@ public class ProgramLogger {
     public static void main(String[] args){
         System.out.println("Program launched");
         logger.debug("debug");
-        NamePrinter.print("myName");
+        NamePrinter.print("ProgramLogger launched");
     }
 }

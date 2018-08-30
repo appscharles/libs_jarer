@@ -30,6 +30,10 @@ public class ZipFilePutter implements IZipEntryPutter {
             if (zipEntry.getName().startsWith(dependency.getResource()) == false){
                 return;
             }
+            if (addedZipEntryNames.contains(zipEntry.getName())){
+                return;
+            }
+            addedZipEntryNames.add(zipEntry.getName());
             ZipFile zipfile = new ZipFile(new File(dependency.getLocation().toURI()));
             InputStream inputStream = zipfile.getInputStream(zipEntry);
             JarEntry jarEntry = new JarEntry(zipEntry.getName());

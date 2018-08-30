@@ -35,6 +35,10 @@ public class UnpackFilePutter implements IFilePutter {
             if (jarEntryName.startsWith(dependency.getResource()) == false){
                 return;
             }
+            if (addedZipEntryNames.contains(jarEntryName)){
+                return;
+            }
+            addedZipEntryNames.add(jarEntryName);
             InputStream inputStream = new FileInputStream(file);
             JarEntry jarEntry = new JarEntry(jarEntryName);
             jos.putNextEntry(jarEntry);
